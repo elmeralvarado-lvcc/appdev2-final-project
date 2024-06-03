@@ -3,6 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +22,20 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::get('cart/items', [CartItemController::class, 'index']);
+// Route::get('cart/items/{cartItem}', [CartItemController::class, 'show']);
+// Route::delete('cart/items/{cartItem}', [CartItemController::class, 'destroy']);
+
+Route::post('login', LoginController::class);
+
+Route::post('add-product-variant-to-cart/{variantId}/{sessionId?}', [CartController::class, 'addProductVariantToCart'])->name('add-product-variant-to-cart');
+
+Route::apiResource('products', ProductController::class);
+
+Route::post('carts/{sessionId}/migrate', [CartController::class, 'migrate'])->name('carts.migrate');
+Route::apiResource('carts', CartController::class);
+
+Route::post('cartItems/{cartItem}/increment', [CartItemController::class, 'increment'])->name('cartItems.increment');
+Route::post('cartItems/{cartItem}/decrement', [CartItemController::class, 'decrement'])->name('cartItems.decrement');
+Route::apiResource('cartItems', CartItemController::class);
