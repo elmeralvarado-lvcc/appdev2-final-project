@@ -33,7 +33,11 @@ Route::post('add-product-variant-to-cart/{variantId}/{sessionId?}', [CartControl
 
 Route::apiResource('products', ProductController::class);
 
+Route::get('/success', [CartController::class, 'success'])->name('checkout.success');
+Route::get('/cancel', [CartController::class, 'cancel'])->name('checkout.cancel');
+
 Route::post('carts/{sessionId}/migrate', [CartController::class, 'migrate'])->name('carts.migrate');
+Route::post('carts/checkout', [CartController::class, 'checkout'])->name('carts.checkout');
 Route::apiResource('carts', CartController::class);
 
 Route::post('cartItems/{cartItem}/increment', [CartItemController::class, 'increment'])->name('cartItems.increment');

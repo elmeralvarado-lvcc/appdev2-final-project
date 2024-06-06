@@ -15,8 +15,6 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['price'];
-
     protected function price(): Attribute
     {
         return Attribute::make(
