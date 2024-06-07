@@ -8,7 +8,6 @@ use Laravel\Cashier\Cashier;
 use App\Models\User;
 use App\Models\Cart;
 use Stripe\LineItem;
-use Log;
 
 class HandleCheckoutSessionCompleted
 {
@@ -18,10 +17,6 @@ class HandleCheckoutSessionCompleted
             $session = Cashier::stripe()->checkout->sessions->retrieve($sessionId);
             $user = User::find($session['metadata']['user_id']);
             $cart = Cart::find($session['metadata']['cart_id']);
-
-            if (!$session || !$user || !$cart) {
-                throw new \Exception('Invalid session, user, or cart.');
-            }
 
             $order = $user->orders()->create([
                 'stripe_checkout_session_id' => $session->id,

@@ -8,6 +8,8 @@ use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 
+use App\Http\Controllers\WebhookController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,3 +45,7 @@ Route::apiResource('carts', CartController::class);
 Route::post('cartItems/{cartItem}/increment', [CartItemController::class, 'increment'])->name('cartItems.increment');
 Route::post('cartItems/{cartItem}/decrement', [CartItemController::class, 'decrement'])->name('cartItems.decrement');
 Route::apiResource('cartItems', CartItemController::class);
+
+
+Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
+
