@@ -158,16 +158,6 @@ class CartController extends Controller
         return response()->json('Unauthorized', 401);
     }
 
-    public function success()
-    {
-        return 'Successful!';
-    }
-
-    public function cancel()
-    {
-        return 'Cancelled!';
-    }
-
     private function formatCartItems(Collection $items)
     {
         return $items->loadMissing('product', 'variant')->map(function (CartItem $item) {
